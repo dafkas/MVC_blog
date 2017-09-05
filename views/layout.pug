@@ -1,0 +1,25 @@
+//-Helpers
+    //attributes a(href=`${name}`)
+    //var  = -const marv = name.toUppercase();
+    //replace block, create new in this file
+
+doctype html
+html
+    head
+        title='Photo Gallery'
+        link(rel='stylesheet', href='/dist/style.css')
+        meta(name='viewport', content='width=device-width', initial-scale=1)
+    body
+        block header
+            header.top 
+                nav.nav
+                    .nav__section.nav__section--pages
+                        each item in h.menu
+                            li.nav__item
+                                a.nav__link(href=item.slug)
+                                    span #{item.title}
+    .content
+        block content
+
+    block scripts
+        script(src="/dist/App.bundle.js")
