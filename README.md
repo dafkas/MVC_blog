@@ -1,2 +1,2 @@
-## Photogallery expressJS
+## Blog made with expressJS
 expressJS framework MVC
