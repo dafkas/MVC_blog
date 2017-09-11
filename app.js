@@ -1,6 +1,8 @@
 //Create constances
 const express = require('express');
 const session = require('express-session');
+const passport = require('passport');
+const env = require('dotenv').load();
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
@@ -28,6 +30,11 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+
+//passport initialize
+app.use(session({secret: 'keyboard cat', resave:true, saveUninitialized:true}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 //use routes
 app.use('/', routes);
