@@ -1,24 +1,24 @@
-const express = require('express');
-const router =  express.Router();
-const photoController = require('../controllers/photoController');
+const authController = require('../controllers/authController');
 const userController = require('../controllers/userController');
 const adminController = require('../controllers/adminController');
 
-//Homepage
-router.get('/', photoController.homePage);
+module.exports = function(app, passport) {
 
-//User routes
-router.get('/register', userController.registerPage);
-router.post('/register', userController.register);
+    app.get('/', userController.home);
+ 
+    app.get('/register', userController.register);
+ 
+    app.get('/login', authController.login);
+ 
+    app.post('/register', passport.authenticate('local-signup', {
+            successRedirect: '/dashboard',
+            failureRedirect: '/register'
+        }
+    ));
 
-router.get('/login', userController.loginPage);
+    app.get('/dashboard', authController.isLoggedIn, userController.dashboard);
 
-//Admin routes
-router.get('/admin', adminController.index);
+    app.get('/logout', authController.logout);
+ 
 
-// router.get('/:page', (req, res) => {
-//     const page = req.params.page;
-//     res.send(`welkom op de ${page} pagina`);
-// });
-
-module.exports = router;
+}

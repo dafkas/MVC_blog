@@ -14,10 +14,19 @@ html
             header.top 
                 nav.nav
                     .nav__section.nav__section--pages
+                    if user
+                        each item in h.dashboardMenu
+                                        li.nav__item
+                                            a.nav__link(href=item.slug)
+                                                span #{item.title}
+                        p loggedin
+                    else
                         each item in h.menu
                             li.nav__item
                                 a.nav__link(href=item.slug)
                                     span #{item.title}
+                        p loggedOut
+        
     .content
         block content
 

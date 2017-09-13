@@ -3,3 +3,8 @@ exports.menu = [
     {slug: '/register', title: 'Register',},
     {slug: '/login', title: 'Login', },
 ];
+
+exports.dashboardMenu = [
+    {slug: '/', title: 'Index',},
+    {slug: '/logout', title: 'Logout',},
+];
