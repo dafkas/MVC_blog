@@ -57,4 +57,26 @@ module.exports = (passport, user) =>{
             });
         }
     ));
+    
+    passport.use('local-signin', new LocalStrategy({
+            usernameField: 'email',
+            passwordField: 'password',
+            passReqToCallback: true
+
+    },
+    (req, email, password, done) => {
+        const User = user;
+
+        const isValidPassword = (userPassword, password) => {
+            return bCrypt.compareSync(password, userPassword);
+        }
+
+        User.findOne({where: {email: email}}).then(function(user){
+
+            const userInfo = user.get();
+
+            return done(null, user);
+        });
+    }
+    ))
 }

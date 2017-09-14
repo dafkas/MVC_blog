@@ -2,7 +2,7 @@ extends ../layout
 
 block content
     h1 welcome to loginPage
-        form.form(action="/login" method="POST")
+    form.form(action="/login" method="POST")
         input(type="email", name="email", placeholder="Email")
         input(type="password", name="password", placeholder="Password")
-        input.button(type="submit", value="Register")
+        input.button(type="submit", value="Login")
