@@ -26,9 +26,6 @@ module.exports = (passport, user) =>{
         },
 
         (req, email, password, done) => {
-            const generateHash = (password) =>{
-                return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);       
-            };
             User.findOne({
                 where: {
                     email: email
@@ -39,7 +36,7 @@ module.exports = (passport, user) =>{
                         message: 'Email already taken'
                     });
                 } else {
-                    const userPassword = generateHash(password);
+                    const userPassword = User.generateHash(password);
                     const data = {
                         email: email,
                         password:userPassword
@@ -57,25 +54,27 @@ module.exports = (passport, user) =>{
             });
         }
     ));
-    
+
     passport.use('local-signin', new LocalStrategy({
             usernameField: 'email',
             passwordField: 'password',
+            roleField: 'role',
             passReqToCallback: true
 
     },
     (req, email, password, done) => {
         const User = user;
-
-        const isValidPassword = (userPassword, password) => {
-            return bCrypt.compareSync(password, userPassword);
-        }
-
+        // console.log(req.session.user);
         User.findOne({where: {email: email}}).then(function(user){
-
-            const userInfo = user.get();
-
-            return done(null, user);
+            if(!user || (!User.validatePassword(user ,password))) {
+                console.log("password or email invalid!")
+                return done(null, false);
+            }
+            else{
+                const userInfo = user.get();
+                // console.log(userInfo)
+                return done(null, userInfo);
+            }
         });
     }
     ))

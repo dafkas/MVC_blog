@@ -1,10 +1,7 @@
+const models = require('../models').User
+
 exports.login = (req, res) => {
-    if(req.isAuthenticated()){
-        res.redirect('/dashboard');
-    }
-    else{
-        res.render('users/login');
-    }
+    res.render('users/login');
 };
 
 exports.logout = (req, res) => {
@@ -28,3 +25,13 @@ exports.isLoggedOut = (req, res, next) => {
         next();
     }
 };
+
+exports.roleAuth = (role) => {
+    return (req, res, next) =>{
+        if(req.user.role == role){
+            next();
+        }else{
+            res.redirect('/dashboard');
+        }
+    }
+}

@@ -12,17 +12,20 @@ module.exports = function(app, passport) {
 
     app.post('/login', passport.authenticate('local-signin', {
             successRedirect: '/dashboard',
-            failureRedirect: '/login'
+            failureRedirect: '/login',
         }
     ))
 
     app.post('/register', passport.authenticate('local-signup', {
             successRedirect: '/dashboard',
+            successFlash: 'You are now logged in!',
             failureRedirect: '/register'
         }
     ))
     app.get('/dashboard', authController.isLoggedIn, userController.dashboard);
 
-    app.get('/logout', authController.logout);
+    app.get('/admin/panel', authController.isLoggedIn, authController.roleAuth('admin'), adminController.panel);
+
+    app.get('/logout', authController.isLoggedIn, authController.logout);
 
 }

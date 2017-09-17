@@ -8,6 +8,7 @@ const bodyParser = require('body-parser');
 const promisify = require('es6-promisify');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
+const flash = require('connect-flash');
 
 
 //create express app
@@ -33,10 +34,12 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 //Helpers to template
 app.use((req, res, next) => {
     res.locals.h = helpers
+    res.locals.flashes = req.flash();
     res.locals.user = req.user || null;
     next();
 });

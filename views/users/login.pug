@@ -1,8 +1,7 @@
 extends ../layout
 
+include ../mixins/_loginForm
+
 block content
     h1 welcome to loginPage
-    form.form(action="/login" method="POST")
-        input(type="email", name="email", placeholder="Email")
-        input(type="password", name="password", placeholder="Password")
-        input.button(type="submit", value="Login")
+    +loginForm()

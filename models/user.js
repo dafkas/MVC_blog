@@ -1,6 +1,8 @@
+const bCrypt = require('bcrypt-nodejs');
+
 module.exports = function(sequelize, Sequelize) {
  
-    let User = sequelize.define('user', {
+    const User = sequelize.define('user', {
  
         id: {
             autoIncrement: true,
@@ -19,6 +21,11 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.STRING,
             allowNull: false
         },
+
+        role: {
+            type: Sequelize.ENUM('admin', 'regular'),
+            defaultValue: 'regular'
+        },
  
         status: {
             type: Sequelize.ENUM('active', 'inactive'),
@@ -26,6 +33,14 @@ module.exports = function(sequelize, Sequelize) {
         }
  
     });
+
+    User.generateHash = (password) => {
+        return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);   
+    };    
+    
+    User.validatePassword = (user ,password) => {
+        return bCrypt.compareSync(password, user.password);   
+    };
 
     return User;
 }
