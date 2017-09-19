@@ -6,7 +6,7 @@ module.exports = (passport, user) =>{
 
     //serialize
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user.userId);
     });
 
     passport.deserializeUser(function(id, done) {

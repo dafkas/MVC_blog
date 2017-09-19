@@ -3,12 +3,7 @@ exports.home =  (req, res) => {
 };
 
 exports.register =  (req, res) => {
-      if(req.isAuthenticated()){
-        res.redirect('/dashboard');
-    }
-    else{
-        res.render('users/register');
-    }
+    res.render('users/register');
 };
 
 exports.dashboard = (req, res) => {

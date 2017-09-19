@@ -1,6 +1,7 @@
 const authController = require('../controllers/authController');
 const userController = require('../controllers/userController');
 const adminController = require('../controllers/adminController');
+const postController = require('../controllers/postController');
 
 module.exports = function(app, passport) {
 
@@ -27,5 +28,7 @@ module.exports = function(app, passport) {
     app.get('/admin/panel', authController.isLoggedIn, authController.roleAuth('admin'), adminController.panel);
 
     app.get('/logout', authController.isLoggedIn, authController.logout);
+
+    app.get('/post/create', authController.isLoggedIn, postController.createPost);
 
 }

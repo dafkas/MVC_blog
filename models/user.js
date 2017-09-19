@@ -1,10 +1,10 @@
 const bCrypt = require('bcrypt-nodejs');
 
-module.exports = function(sequelize, Sequelize) {
+module.exports = (sequelize, Sequelize) => {
  
     const User = sequelize.define('user', {
  
-        id: {
+        userId: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
@@ -30,9 +30,8 @@ module.exports = function(sequelize, Sequelize) {
         status: {
             type: Sequelize.ENUM('active', 'inactive'),
             defaultValue: 'active'
-        }
- 
-    });
+        },
+        });
 
     User.generateHash = (password) => {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);   

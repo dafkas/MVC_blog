@@ -7,4 +7,5 @@ exports.menu = [
 exports.dashboardMenu = [
     {slug: '/', title: 'Index',},
     {slug: '/logout', title: 'Logout',},
+    {slug: '/post/create', title: 'Create a post'},
 ];
