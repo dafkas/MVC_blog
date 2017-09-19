@@ -6,11 +6,15 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        name: {
+        title: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: true
         },
         content: {            
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        categorie: {            
             type: Sequelize.STRING,
             allowNull: true
         },
@@ -30,5 +34,16 @@ module.exports = (sequelize, Sequelize) => {
         }
     });
 
+    this.create = (data) => {
+        return Post.create({ });
+    };
+    
+    Post.delete = (id) => {
+        return Post.destroy({
+            where: {
+                postId : id
+            }
+        });
+    };
     return Post;
 }

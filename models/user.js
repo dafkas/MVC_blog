@@ -31,7 +31,15 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.ENUM('active', 'inactive'),
             defaultValue: 'active'
         },
+    });
+
+    User.delete = (id) => {
+        return User.destroy({
+            where: {
+                userId: id
+            }
         });
+    }
 
     User.generateHash = (password) => {
         return bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);   
@@ -40,6 +48,8 @@ module.exports = (sequelize, Sequelize) => {
     User.validatePassword = (user ,password) => {
         return bCrypt.compareSync(password, user.password);   
     };
+
+
 
     return User;
 }

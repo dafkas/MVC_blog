@@ -31,4 +31,10 @@ module.exports = function(app, passport) {
 
     app.get('/post/create', authController.isLoggedIn, postController.createPost);
 
+    app.post('/post/create', authController.isLoggedIn, postController.storePost);
+
+    app.get('/admin/post/delete/:id', authController.isLoggedIn, adminController.deletePost);
+
+    app.get('/admin/user/delete/:id', authController.isLoggedIn, adminController.deleteUser);
+
 }
