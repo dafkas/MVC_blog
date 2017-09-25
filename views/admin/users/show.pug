@@ -1,0 +1,8 @@
+extends ../../layout
+
+block content
+    h3 #{user.name}
+    h3 #{user.email}
+    h3 #{user.role}
+    h3 #{user.status}
+    a(href=`/admin/user/edit/${user.userId}`) edit

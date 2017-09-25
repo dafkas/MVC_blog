@@ -2,17 +2,24 @@ extends ../layout
 
 block content
     h1 Welcome to Admin panel
-    p Posts :
+    h3 Posts :
     each post in posts
-        span #{post.title}
+        span #{post.title} 
             a.btn.btn-info( href=`post/edit/${post.postId}` ) Edit
             a.btn.btn-danger( href=`post/delete/${post.postId}` ) Delete
             br
-    p Users :
+    br
+    h3 Users :
     each user in users
-        span #{user.email}
+        span #{user.email}  
             //- a.btn.btn-info( href=`post/edit/${post.postId}` ) Edit
-            a.btn.btn-danger( href=`user/delete/${user.userId}` ) Delete
-            br
+            if (user.role == 'admin')
+                a.btn.btn-info( href=`user/show/${user.userId}` ) Show
+                button.btn.btn-danger( href=`user/delete/${user.userId}` disabled) Admin cannot be deleted
+                br
+            else
+                a.btn.btn-info( href=`user/show/${user.userId}` ) Show
+                a.btn.btn-danger( href=`user/delete/${user.userId}` ) Delete
+                br
 
         

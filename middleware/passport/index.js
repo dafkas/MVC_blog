@@ -38,6 +38,7 @@ module.exports = (passport, user) =>{
                 } else {
                     const userPassword = User.generateHash(password);
                     const data = {
+                        name: req.body.name,
                         email: email,
                         password:userPassword
                     };

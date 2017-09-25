@@ -9,6 +9,11 @@ module.exports = (sequelize, Sequelize) => {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
+
+        name: {
+            type: Sequelize.STRING,
+            allowNull: false
+        },
  
         email: {
             type: Sequelize.STRING,
@@ -32,6 +37,19 @@ module.exports = (sequelize, Sequelize) => {
             defaultValue: 'active'
         },
     });
+    
+    User.updateUser = (data) => {
+        console.log(JSON.stringify(data));
+        return User.update({
+                name: data.name,
+                email: data.email,
+                password: User.generateHash(data.password)
+            },{
+            where: {
+                userId: data.userId
+            }
+        });
+    }
 
     User.delete = (id) => {
         return User.destroy({
@@ -48,9 +66,6 @@ module.exports = (sequelize, Sequelize) => {
     User.validatePassword = (user ,password) => {
         return bCrypt.compareSync(password, user.password);   
     };
-
-
-
     return User;
 }
 

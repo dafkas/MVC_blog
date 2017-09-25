@@ -8,15 +8,15 @@ module.exports = (sequelize, Sequelize) => {
         },
         title: {
             type: Sequelize.STRING,
-            allowNull: true
+            allowNull: false
         },
         content: {            
             type: Sequelize.STRING,
-            allowNull: true
+            allowNull: false
         },
         categorie: {            
             type: Sequelize.STRING,
-            allowNull: true
+            allowNull: false
         },
         status: {
             type: Sequelize.ENUM('active', 'inactive'),
@@ -35,7 +35,7 @@ module.exports = (sequelize, Sequelize) => {
     });
 
     this.create = (data) => {
-        return Post.create({ });
+        return Post.create({    });
     };
     
     Post.delete = (id) => {
