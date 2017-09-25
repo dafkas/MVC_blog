@@ -6,3 +6,8 @@ block content
     h3 #{user.role}
     h3 #{user.status}
     a(href=`/admin/user/edit/${user.userId}`) edit
+
+    h3 posts:
+    each post in posts
+        h3 #{post.title}
+        a(href=`/admin/post/show/${post.postId}`) edit

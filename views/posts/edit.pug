@@ -1,0 +1,14 @@
+extends ../layout
+include ../mixins/_postForm
+
+block content
+    h1 Edit your post
+    form.form(action=`/post/update` method="POST")
+        input(type="hidden", name="postId", value=post.postId)
+        input(type="text", name="title", placeholder="Title" value=post.title)
+        br
+        input(type="text", name="cat", placeholder="categorie" value=post.categorie)
+        br
+        textarea(rows="10", cols="50", name="content", placeholder="Message..") #{post.content}
+        br
+        input.button(type="submit", value="Save")

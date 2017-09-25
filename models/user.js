@@ -35,7 +35,17 @@ module.exports = (sequelize, Sequelize) => {
         status: {
             type: Sequelize.ENUM('active', 'inactive'),
             defaultValue: 'active'
-        },
+        }
+        },{
+        classMethods: {
+            associate: function(models) {
+                User.hasMany(models.post, {
+                    foreignKey: 'userId',
+                    onDelete: 'CASCADE'
+                });
+
+            }
+        }
     });
     
     User.updateUser = (data) => {

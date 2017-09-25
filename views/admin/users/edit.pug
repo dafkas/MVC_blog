@@ -1,7 +1,7 @@
 extends ../../layout
 
 block content
-    form.form(action=`/admin/user/update/${user.userId}` method="POST")
+    form.form(action=`/admin/user/update` method="POST")
         input(type="hidden", name="userId", value=user.userId)
         input(type="text", name="name", value=user.name)
         input(type="email", name="email", value=user.email)

@@ -9,8 +9,14 @@ exports.panel = (req, res) => {
 };
 
 exports.showUser = (req, res) => {
-    return models.user.findById(req.params.id).then(user => {
-        res.render('admin/users/show', {user: user});
+    models.user.findById(req.params.id, {include: [models.post]}).then(user => {
+        models.post.findAll({
+            where:{
+                userId: user.userId
+            }
+        }).then((post) => {
+            res.render('admin/users/show', {user: user, posts: post});
+        });
     });
 };
 
@@ -30,6 +36,7 @@ exports.deleteUser = (req,res) => {
     models.user.delete(req.params.id);
     res.redirect('back');
 };
+
 
 exports.deletePost = (req,res) => {
     models.post.delete(req.params.id)

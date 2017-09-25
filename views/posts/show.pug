@@ -1,0 +1,8 @@
+extends ../layout
+
+block content
+    h3 #{post.title}
+    h3 #{post.categorie}
+    h3 #{post.content}
+    h3 posted by #{post.user.name}
+    a(href=`/post/edit/${post.postId}`) edit

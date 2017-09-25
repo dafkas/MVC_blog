@@ -37,6 +37,19 @@ module.exports = (sequelize, Sequelize) => {
     this.create = (data) => {
         return Post.create({    });
     };
+
+    Post.updatePost = (data) => {
+        console.log(data);
+        return Post.update({
+            title: data.title,
+            categorie: data.cat,
+            content: data.content
+        },{
+            where: {
+                postId : data.postId
+            }
+        });
+    }
     
     Post.delete = (id) => {
         return Post.destroy({
