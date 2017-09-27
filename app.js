@@ -11,6 +11,7 @@ const errorHandlers = require('./handlers/errorHandlers');
 const flash = require('connect-flash');
 
 
+
 //create express app
 const app = express();
 
@@ -32,8 +33,19 @@ app.use(session({
   resave: false,
   saveUninitialized: false
 }));
+
+//passport initialize and session
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session({
+  secret: 'our super secret session secret',
+  cookie: {
+    maxAge: 3600000,
+    secure: true
+  }
+}));
+
+//flash messages
+
 app.use(flash());
 
 //Helpers to template
@@ -59,6 +71,7 @@ models.sequelize.sync().then(function() {
 }).catch(function(err) {
     console.log(err, 'Models could not be synched!');
 });
+
 
 //export module so it can be started in start file
 module.exports = app;

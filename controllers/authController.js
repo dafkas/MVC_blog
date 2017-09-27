@@ -1,4 +1,4 @@
-const models = require('../models').User
+const models = require('../models')
 
 exports.login = (req, res) => {
     res.render('users/login');
@@ -28,10 +28,15 @@ exports.isLoggedOut = (req, res, next) => {
 
 exports.roleAuth = (role) => {
     return (req, res, next) =>{
-        if(req.user.role == role){
-            next();
-        }else{
-            res.redirect('/dashboard');
-        }
+        models.post.findById(req.params.id).then(post => {
+            if(role.indexOf(req.user.role) > -1){
+                console.log(post.userId)
+                if(req.user.role == 'admin' || req.user.userId == post.userId){
+                    next();
+                }else{
+                    res.redirect('back');
+                }
+            }
+        });
     }
 }

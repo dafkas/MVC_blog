@@ -49,7 +49,6 @@ module.exports = (sequelize, Sequelize) => {
     });
     
     User.updateUser = (data) => {
-        console.log(JSON.stringify(data));
         return User.update({
                 name: data.name,
                 email: data.email,

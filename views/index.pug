@@ -2,3 +2,7 @@ extends layout
 
 block content
     h1 Welcome on the homePage
+
+    each post in posts
+        h3 #{post.title} posted by #{post.user.name}
+        a(href=`/post/show/${post.postId}`) show

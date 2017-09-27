@@ -1,5 +1,9 @@
+const models = require('../models');
+
 exports.home =  (req, res) => {
-    res.render('index');
+    models.post.findAll({ include:[models.user], order:[['createdAt', 'DESC']] }).then((post) => {
+        res.render('index', {posts: post});
+    });
 };
 
 exports.register =  (req, res) => {
@@ -9,5 +13,3 @@ exports.register =  (req, res) => {
 exports.dashboard = (req, res) => {
     res.render('users/dashboard');
 };
-
-

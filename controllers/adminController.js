@@ -36,9 +36,3 @@ exports.deleteUser = (req,res) => {
     models.user.delete(req.params.id);
     res.redirect('back');
 };
-
-
-exports.deletePost = (req,res) => {
-    models.post.delete(req.params.id)
-    res.redirect('back');
-};
