@@ -5,7 +5,7 @@ block content
     h3 Posts :
     each post in posts
         span #{post.title} 
-            a.btn.btn-info( href=`post/show/${post.postId}` ) Show
+            a.btn.btn-info( href=`/post/show/${post.postId}` ) Show
             a.btn.btn-danger( href=`post/delete/${post.postId}` ) Delete
             br
     br
