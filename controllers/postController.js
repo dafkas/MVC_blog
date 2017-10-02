@@ -1,11 +1,13 @@
 const models = require('../models');
+const sanitize = require('../middleware/sanitize-html');
+
 
 exports.createPost = (req, res) => {
-    
     res.render('posts/create', {users: req.user.userId});
 };
 
-exports.storePost = (req,res) => {
+exports.storePost = (req, res) => {
+    // console.log(req.body.content);
     models.post.create(req.body);
     res.redirect('/')
 };

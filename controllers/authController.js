@@ -28,9 +28,10 @@ exports.isLoggedOut = (req, res, next) => {
 
 exports.roleAuth = (role) => {
     return (req, res, next) =>{
+        console.log(req.params.id, req.user.role, req.user.userId)
         models.post.findById(req.params.id).then(post => {
             if(role.indexOf(req.user.role) > -1){
-                console.log(post.userId)
+                console.log(post.userId, req.user.userId)
                 if(req.user.role == 'admin' || req.user.userId == post.userId){
                     next();
                 }else{

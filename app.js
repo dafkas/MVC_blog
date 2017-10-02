@@ -11,7 +11,6 @@ const errorHandlers = require('./handlers/errorHandlers');
 const flash = require('connect-flash');
 
 
-
 //create express app
 const app = express();
 
@@ -34,18 +33,8 @@ app.use(session({
   saveUninitialized: false
 }));
 
-//passport initialize and session
 app.use(passport.initialize());
-app.use(passport.session({
-  secret: 'our super secret session secret',
-  cookie: {
-    maxAge: 3600000,
-    secure: true
-  }
-}));
-
-//flash messages
-
+app.use(passport.session());
 app.use(flash());
 
 //Helpers to template
@@ -63,7 +52,8 @@ const models = require('./models');
 const routes = require('./routes/index.js')(app, passport);
 
 //Require middleware
-require('./middleware/passport')(passport,models.user);
+require('./middleware/passport')(passport, models.user);
+
 
 //Sync Database
 models.sequelize.sync().then(function() {

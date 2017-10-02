@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,13 +73,38 @@
 "use strict";
 
 
-CKEDITOR.replace('content');
+__webpack_require__(2);
+
+var _ckEditor = __webpack_require__(1);
+
+var _ckEditor2 = _interopRequireDefault(_ckEditor);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
-(function webpackMissingModule() { throw new Error("Cannot find module \"./public/javascripts/script.js\""); }());
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+CKEDITOR.replace('content');
+
+exports.default = ckEditor;
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
 module.exports = __webpack_require__(0);
 
 
