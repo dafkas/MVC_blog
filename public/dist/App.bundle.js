@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 4);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,7 +73,11 @@
 "use strict";
 
 
-__webpack_require__(2);
+__webpack_require__(3);
+
+var _listJs = __webpack_require__(2);
+
+var _listJs2 = _interopRequireDefault(_listJs);
 
 var _ckEditor = __webpack_require__(1);
 
@@ -97,12 +101,28 @@ exports.default = ckEditor;
 
 /***/ }),
 /* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var monkeyList = new List('post-list', {
+  valueNames: ['name', 'user']
+});
+
+exports.default = listJs;
+
+/***/ }),
+/* 3 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 3 */
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(0);

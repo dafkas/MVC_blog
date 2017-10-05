@@ -3,11 +3,13 @@ const sanitize = require('../middleware/sanitize-html');
 
 
 exports.createPost = (req, res) => {
-    res.render('posts/create', {users: req.user.userId});
+    models.category.findAll({}).then(category => {
+        res.render('posts/create', {categories: category});
+    });
 };
 
 exports.storePost = (req, res) => {
-    // console.log(req.body.content);
+    console.log(req.body);
     models.post.create(req.body);
     res.redirect('/')
 };
@@ -34,6 +36,14 @@ exports.deletePost = (req,res) => {
     models.post.delete(req.params.id)
     res.redirect('/');
 };
+
+exports.filterPosts = (req, res) => {
+    models.category.findAll({}).then(category => {
+        models.post.findAll({ where: {categoryId: req.query.category}, include:[{ model: models.user}, { model: models.category}], order:[['createdAt', 'DESC']] }).then((post) => {
+            res.render('index', {posts: post, categories: category});
+        });
+    });
+}
 
 
 

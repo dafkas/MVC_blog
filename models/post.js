@@ -14,10 +14,6 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
             allowNull: false
         },
-        categorie: {            
-            type: Sequelize.STRING,
-            allowNull: false
-        },
         status: {
             type: Sequelize.ENUM('active', 'inactive'),
             defaultValue: 'active'
@@ -29,14 +25,13 @@ module.exports = (sequelize, Sequelize) => {
                     foreignKey: 'userId',
                     onDelete: 'CASCADE'
                 });
-
+                Post.belongsTo(models.category, {
+                    foreignKey: 'categoryId',
+                    onDelete: 'CASCADE'
+                });
             }
         }
     });
-
-    this.create = (data) => {
-        return Post.create({    });
-    };
 
     Post.updatePost = (data) => {
         console.log(data);

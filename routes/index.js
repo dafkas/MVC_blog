@@ -2,6 +2,7 @@ const authController = require('../controllers/authController');
 const userController = require('../controllers/userController');
 const adminController = require('../controllers/adminController');
 const postController = require('../controllers/postController');
+const categoryController = require('../controllers/categoryController');
 const sanitize = require('../middleware/sanitize-html');
 const checkRole = require('../middleware/role-auth');
 
@@ -27,6 +28,20 @@ module.exports = function(app, passport) {
     app.get('/post/create', authController.isLoggedIn, postController.createPost);
     app.post('/post/create', authController.isLoggedIn, sanitize.sanitizeContent, postController.storePost);
 
+    app.get('/category/create', categoryController.create);
+    app.post('/category/create', categoryController.store);
+    app.get('/filter', postController.filterPosts);
+//     app.get("/filter", function (request, response){
+//      var firstname = request.query.category;
+ 
+//      if (firstname != "") {
+//          response.send("Your email address is " + firstname + "@gullele.com");
+//      } else {
+//          response.send("Please provide us first name");
+//      }
+//  });
+    app.post('/category/:id', postController.filterPosts);
+    
     app.get('/post/show/:id',postController.showPost);
     app.get('/post/edit/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), postController.editPost);
     app.post('/post/update/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), sanitize.sanitizeContent, postController.updatePost);

@@ -1,10 +1,16 @@
-mixin postForm()
+mixin postForm(categories)
     div(class="post-form")
         form.form(action="/post/create" method="POST")
             input(type="hidden", name="userId", value=user.userId)
             input(type="text", name="title", placeholder="Title")
             br
-            input(type="text", name="categorie", placeholder="categorie")
+            select(name="categoryId")
+                option(value='', selected='selected') Filter category
+                each category in categories
+                    option(value=category.categoryId) #{category.category} 
+            br
+            a(href="/category/create")  Or create a new one
+            //- input(type="text", name="categorie", placeholder="categorie")
             br
             //- div(id="content", rows="10", cols="50", name="content", placeholder="Message..")
             textarea(id="content" name="content" class="text-editor")

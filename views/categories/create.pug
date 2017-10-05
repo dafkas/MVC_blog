@@ -1,0 +1,9 @@
+extends ../layout
+
+block content
+    div(class="post-form")
+        form.form(action="/category/create" method="POST")
+            //- input(type="hidden", name="userId", value=user.userId)
+            input(type="text", name="category", placeholder="Category")
+            br
+            input.button(type="submit", value="Save")
