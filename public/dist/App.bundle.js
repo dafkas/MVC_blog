@@ -85,6 +85,8 @@ var _ckEditor2 = _interopRequireDefault(_ckEditor);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+(0, _ckEditor2.default)($('.content'));
+
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -93,9 +95,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+    value: true
 });
-CKEDITOR.replace('content');
+function ckEditor(content) {
+    if (!content) return;
+    CKEDITOR.replace('content');
+}
 
 exports.default = ckEditor;
 
@@ -109,7 +114,7 @@ exports.default = ckEditor;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-var monkeyList = new List('post-list', {
+var listJs = new List('post-list', {
   valueNames: ['name', 'user']
 });
 

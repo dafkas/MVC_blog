@@ -3,7 +3,7 @@ const sanitize = require('../middleware/sanitize-html');
 
 
 exports.createPost = (req, res) => {
-    models.category.findAll({}).then(category => {
+    models.category.findAll({ }).then(category => {
         res.render('posts/create', {categories: category});
     });
 };
@@ -22,9 +22,11 @@ exports.showPost = (req, res) => {
 };
 
 exports.editPost = (req, res) => {
-    models.post.findById(req.params.id).then(post => {
-            res.render('posts/edit', {post: post});
-    })
+    models.category.findAll({}).then(category => {
+        models.post.findById(req.params.id, {include: [models.category]}).then(post => {
+                res.render('posts/edit', {post: post, categories: category});
+        })
+    });
 };
 
 exports.updatePost = (req, res) => {

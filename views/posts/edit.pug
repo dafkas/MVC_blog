@@ -1,5 +1,4 @@
 extends ../layout
-include ../mixins/_postForm
 
 block content
     h1 Edit your post
@@ -7,7 +6,14 @@ block content
         input(type="hidden", name="postId", value=post.postId)
         input(type="text", name="title", placeholder="Title" value=post.title)
         br
-        input(type="text", name="cat", placeholder="categorie" value=post.categorie)
+        select(name="categoryId")
+            option(value=post.category.categoryId, selected='selected') #{post.category.category}
+                each category in categories
+                    if(post.category.category !== category.category)
+                        option(value=category.categoryId) #{category.category}
+        br
+        input(type="checkbox" name="active" label="Active")
+        |   Active
         br
         textarea(rows="10", cols="50", name="content", placeholder="Message..") #{post.content}
         br

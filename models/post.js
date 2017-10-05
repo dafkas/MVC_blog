@@ -37,8 +37,9 @@ module.exports = (sequelize, Sequelize) => {
         console.log(data);
         return Post.update({
             title: data.title,
-            categorie: data.cat,
-            content: data.content
+            content: data.content,
+            categoryId: data.categoryId
+            //status: data.active 
         },{
             where: {
                 postId : data.postId

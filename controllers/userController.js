@@ -2,7 +2,7 @@ const models = require('../models');
 
 exports.home =  (req, res) => {
     models.category.findAll({}).then(category => {
-        models.post.findAll({ include:[{ model: models.user}, { model: models.category}], order:[['createdAt', 'DESC']] }).then((post) => {
+        models.post.findAll({ where: {status: 'active'}, include:[{ model: models.user}, { model: models.category}], order:[['createdAt', 'DESC']] }).then((post) => {
             res.render('index', {posts: post, categories: category});
         });
     });
@@ -13,5 +13,9 @@ exports.register =  (req, res) => {
 };
 
 exports.dashboard = (req, res) => {
-    res.render('users/dashboard');
+    models.category.findAll({}).then(category => {
+        models.post.findAll({ where: {userId: req.user.userId}, include:[{ model: models.user}, { model: models.category}], order:[['createdAt', 'DESC']] }).then((post) => {
+            res.render('users/dashboard', {posts: post, categories: category});
+        });
+    });
 };

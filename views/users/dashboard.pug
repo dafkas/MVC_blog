@@ -2,3 +2,11 @@ extends ../layout
 
 block content
     h1 Welcome to Dashboard
+    h3 My posts
+    ul(class="list")
+        each post in posts
+            li
+                h3.name #{post.title}
+                h3.user Posted by Me
+                h3 #{post.status}
+                a(href=`/post/show/${post.postId}`) show
