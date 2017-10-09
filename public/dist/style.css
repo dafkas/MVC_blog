@@ -1,3 +1,9 @@
+.content {
+  margin-top: 200px; }
+
+.nav__link {
+  color: #555; }
+
 .login-form {
   width: 20%;
   margin: 0 auto; }
@@ -7,5 +13,19 @@
 
 .list {
   list-style: none; }
+
+.filter {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  margin-left: 15px; }
+  .filter .select-wrapper {
+    width: 200px; }
+
+.fuzzy-search {
+  margin-left: 15px !important;
+  width: 20% !important; }
+
+.filter-btn {
+  margin-left: 40px; }
 
 /*# sourceMappingURL=style.css.map*/

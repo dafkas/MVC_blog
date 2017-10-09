@@ -8,5 +8,15 @@ block content
             li
                 h3.name #{post.title}
                 h3.user Posted by Me
-                h3 #{post.status}
+                div.switch
+                    label Inactive
+                        if(post.status == 'active')
+                            input.activate(type="checkbox" id=post.postId, checked) 
+                        else
+                            input.activate(type="checkbox", id=post.postId,)
+                        span.lever
+                    label Active
+                input(type="hidden", class="postId", value=post.postId)
+
                 a(href=`/post/show/${post.postId}`) show
+                

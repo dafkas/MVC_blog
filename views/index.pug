@@ -3,11 +3,12 @@ extends layout
 block content
     h1 Welcome on the homePage
     form.form(action=`/filter/` method="GET")
-        select(name="category")
-            option(value='', selected='selected') Filter category
-            each category in categories
-                option(value=category.categoryId) #{category.category} 
-        input.button(type="submit", value="Filter")
+        div(class="input-field col s4 filter")
+            select(name="category")
+                option(value='', selected='selected') Filter category
+                each category in categories
+                    option(value=category.categoryId) #{category.category} 
+                input.button(type="submit", class="input-field waves-effect waves-light btn filter-btn" value="Filter")
 
     div(id="post-list")
         input(type="text", class="fuzzy-search", placeholder="Search posts")

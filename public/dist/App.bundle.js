@@ -83,6 +83,14 @@ var _ckEditor = __webpack_require__(1);
 
 var _ckEditor2 = _interopRequireDefault(_ckEditor);
 
+var _activate = __webpack_require__(12);
+
+var _activate2 = _interopRequireDefault(_activate);
+
+var _materialize = __webpack_require__(11);
+
+var _materialize2 = _interopRequireDefault(_materialize);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _ckEditor2.default)($('.content'));
@@ -132,6 +140,86 @@ exports.default = listJs;
 
 module.exports = __webpack_require__(0);
 
+
+/***/ }),
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+$(document).ready(function () {
+    $('select').material_select();
+});
+
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var activator = document.querySelectorAll('.activate');
+
+var _iteratorNormalCompletion = true;
+var _didIteratorError = false;
+var _iteratorError = undefined;
+
+try {
+    var _loop = function _loop() {
+        var activate = _step.value;
+
+        activate.addEventListener('change', function () {
+            activatePost(activate);
+        });
+    };
+
+    for (var _iterator = activator[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+        _loop();
+    }
+} catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+} finally {
+    try {
+        if (!_iteratorNormalCompletion && _iterator.return) {
+            _iterator.return();
+        }
+    } finally {
+        if (_didIteratorError) {
+            throw _iteratorError;
+        }
+    }
+}
+
+;
+
+function activatePost(element) {
+    console.log(element);
+    if (element.checked) {
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:7777/post/activate/' + element.id,
+            success: function success(data) {
+                console.log('post activated');
+            }
+        });
+    } else {
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:7777/post/deactivate/' + element.id,
+            success: function success(data) {
+                console.log('post deactivated');
+            }
+        });
+    }
+}
 
 /***/ })
 /******/ ]);
