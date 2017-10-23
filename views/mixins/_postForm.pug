@@ -1,18 +1,20 @@
 mixin postForm(categories)
     div(class="post-form")
-        form.form(action="/post/create" method="POST")
+        form.form(action="/dashboard/post/create" method="POST")
             input(type="hidden", name="userId", value=user.userId)
             input(type="text", name="title", placeholder="Title")
             br
             select(name="categoryId")
-                option(value='', selected='selected') Filter category
+                option(value=1, selected='selected') No category
                 each category in categories
-                    option(value=category.categoryId) #{category.category} 
-            br
-            a(href="/category/create")  Or create a new one
+                    if(category.userId == user.userId || category.userId == NULL && category.categoryId > 1)
+                        option(value=category.categoryId) #{category.category} 
+            a(href="/dashboard/category/create")  Or create a new one
             //- input(type="text", name="categorie", placeholder="categorie")
+            br
             br
             //- div(id="content", rows="10", cols="50", name="content", placeholder="Message..")
             textarea(id="content" name="content" class="text-editor")
             br
-            input.button(type="submit", value="Save")
+            input.button(type="submit", class="input-field waves-effect waves-light btn" value="Save")
+

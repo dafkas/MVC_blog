@@ -27,7 +27,8 @@ module.exports = (sequelize, Sequelize) => {
                 });
                 Post.belongsTo(models.category, {
                     foreignKey: 'categoryId',
-                    onDelete: 'CASCADE'
+                    onDelete: 'SET NULL',
+                    allowNull: false
                 });
             }
         }

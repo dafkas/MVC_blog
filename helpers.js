@@ -1,13 +1,16 @@
 exports.menu = [
-    {slug: '/', title: 'Index',},
-    {slug: '/register', title: 'Register',},
-    {slug: '/login', title: 'Login', },
+    {slug: '/', title: 'Home',},
+    {slug: '/', title: 'About',},
+    {slug: '/', title: 'Blog',},
+    {slug: '/', title: 'Contact',}
+
 ];
 
 exports.dashboardMenu = [
-    {slug: '/', title: 'Index',},
-    {slug: '/logout', title: 'Logout',},
-    {slug: '/post/create', title: 'Create a post'},
+    {slug: '/', title: 'Home',},
+    {slug: '/', title: 'About',},
+    {slug: '/', title: 'Blog',},
+    {slug: '/', title: 'Contact',}
 ];
 
 exports.allowedTags = [ 

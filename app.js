@@ -62,6 +62,13 @@ models.sequelize.sync().then(function() {
     console.log(err, 'Models could not be synched!');
 });
 
+//Insert first category, No category
+ models.category.findOne({ where: {categoryId : 1 } }).then(category => {
+    if(category == null){
+        models.category.createCategory();
+    }
+ });
 
 //export module so it can be started in start file
 module.exports = app;
+

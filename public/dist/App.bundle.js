@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 6);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -73,93 +73,56 @@
 "use strict";
 
 
-__webpack_require__(3);
+__webpack_require__(5);
 
-var _listJs = __webpack_require__(2);
+var _listJs = __webpack_require__(3);
 
 var _listJs2 = _interopRequireDefault(_listJs);
 
-var _ckEditor = __webpack_require__(1);
+var _ckEditor = __webpack_require__(2);
 
 var _ckEditor2 = _interopRequireDefault(_ckEditor);
 
-var _activate = __webpack_require__(12);
+var _activate = __webpack_require__(1);
 
 var _activate2 = _interopRequireDefault(_activate);
 
-var _materialize = __webpack_require__(11);
+var _materialize = __webpack_require__(4);
 
 var _materialize2 = _interopRequireDefault(_materialize);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var postSubItems = document.getElementById('show-post-items');
+var subItem1 = document.getElementById('subItem1');
+
+postSubItems.addEventListener('click', function () {
+    if (subItem1.classList.contains('hide')) {
+        subItem1.classList.remove('hide');
+        subItem1.classList.add('show');
+    } else {
+        subItem1.classList.remove('show');
+        subItem1.classList.add('hide');
+    }
+});
+
+var categorySubItems = document.getElementById('show-category-items');
+var subItem2 = document.getElementById('subItem2');
+
+categorySubItems.addEventListener('click', function () {
+    if (subItem2.classList.contains('hide')) {
+        subItem2.classList.remove('hide');
+        subItem2.classList.add('show');
+    } else {
+        subItem2.classList.remove('show');
+        subItem2.classList.add('hide');
+    }
+});
+
 (0, _ckEditor2.default)($('.content'));
 
 /***/ }),
 /* 1 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-function ckEditor(content) {
-    if (!content) return;
-    CKEDITOR.replace('content');
-}
-
-exports.default = ckEditor;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-var listJs = new List('post-list', {
-  valueNames: ['name', 'user']
-});
-
-exports.default = listJs;
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(0);
-
-
-/***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-$(document).ready(function () {
-    $('select').material_select();
-});
-
-/***/ }),
-/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -220,6 +183,64 @@ function activatePost(element) {
         });
     }
 }
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+function ckEditor(content) {
+    if (!content) return;
+    CKEDITOR.replace('content');
+}
+
+exports.default = ckEditor;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var listJs = new List('list', {
+  valueNames: ['name-search', 'user-search']
+});
+
+exports.default = listJs;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+$(document).ready(function () {
+    $('select').material_select();
+    $(".dropdown-button").dropdown();
+});
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(0);
+
 
 /***/ })
 /******/ ]);

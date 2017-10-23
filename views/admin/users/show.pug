@@ -1,13 +1,15 @@
-extends ../../layout
+extends ../layout
+
 
 block content
-    h3 #{user.name}
-    h3 #{user.email}
-    h3 #{user.role}
-    h3 #{user.status}
+    h3.page-title Profile: 
+    span.user-info Name: #{user.name}
+    span.user-info Email: #{user.email}
+    span.user-role Role: #{user.role} user
+    span.user-info Number of posts #{posts.length}
     a(href=`/admin/user/edit/${user.userId}`) edit
 
-    h3 posts:
+    h3.page-title Posts: 
     each post in posts
-        h3 #{post.title}
+        h3.post-title #{post.title}
         a(href=`/admin/post/show/${post.postId}`) edit

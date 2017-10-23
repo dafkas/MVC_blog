@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+        h3.page-title Categories
+        h4 My categories
+        ul(class="list collection")
+                each category in categories
+                    if(category.userId == user.userId || category.userId == NULL)
+                        li.collection-item
+                            span.post-title
+                                a(href=`/filter/?category=${category.categoryId}`) #{category.category}
+                                if(category.categoryId == 1)
+
+                                else
+                                    a.secondary-content(href=`/dashboard/category/delete/${category.categoryId}`) Delete 
+                                    div.switch.secondary-content
+                    else

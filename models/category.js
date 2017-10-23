@@ -13,16 +13,32 @@ module.exports = (sequelize, Sequelize) => {
         }, {
          classMethods: {
             associate: function(models) {
+                Category.belongsTo(models.user, {
+                    foreignKey: 'userId',
+                    onDelete: 'SET NULL'
+                });
                 Category.hasMany(models.post, {
                     foreignKey: 'categoryId',
-                    onDelete: 'CASCADE'
+                    onDelete: 'SET NULL'
                 });
-            }
+            },
         }
     });
+    
+    Category.createCategory = () => {
+        Category.create({
+            categoryId : 1,
+            category: 'No category'
+        }); 
+    }
 
-    this.create = (data) => {
-        return Category.create({});
+    Category.delete = (id) => {
+        console.log(id);
+        return Category.destroy({
+            where: {
+                categoryId: id
+            }
+        });
     };
 
     return Category;

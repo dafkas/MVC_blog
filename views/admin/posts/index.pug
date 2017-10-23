@@ -1,0 +1,28 @@
+extends ../layout
+
+
+block content
+        h3.page-title All posts
+        div(id="list")
+            input(type="text", class="fuzzy-search", placeholder="Search posts")
+            ul(class="list collection")
+                each post in posts
+                        li.collection-item
+                            span.post-title
+                            
+                                a.name-search.title(href=`/post/show/${post.postId}`) #{post.title} 
+                                a.name.user-search(href=`/admin/user/show/${post.user.userId}`) by #{post.user.name}
+                                //- a.name.secondary-content(href=`admin/post/show/${post.user.userId}`) Posted by #{post.user.name}
+                                a.secondary-content(href=`/admin/post/delete/${post.postId}`) Delete 
+                                a.secondary-content(href=`/admin/post/edit/${post.postId}`) Edit
+                                div.switch.secondary-content 
+                                    label Inactive
+                                        if(post.status == 'active')
+                                            input.activate(type="checkbox" id=post.postId, checked) 
+                                        else
+                                            input.activate(type="checkbox", id=post.postId,)
+                                        span.lever
+                                    label Active
+                                input(type="hidden", class="postId", value=post.postId)
+
+                    

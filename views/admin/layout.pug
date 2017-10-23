@@ -1,0 +1,54 @@
+doctype html
+html
+    head
+        title='Marvins blog'
+        link(rel='stylesheet', href='/dist/style.css')
+        link(rel="stylesheet" href="https://cdn.quilljs.com/1.3.2/quill.snow.css")
+        link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+
+
+        meta(name='viewport', content='width=device-width', initial-scale=1)
+    body
+        block header
+            section.header(id="header-fixed" style="height:0px!important") 
+                    section.dashboard-top-bar(style="background-color:#353b41;")
+                        ul(id="dropdown1" class="dropdown-content")
+                            li
+                                if(user.role == 'admin') 
+                                    a(href="/admin/panel") Admin panel
+                                a(href="/dashboard") Dashboard
+                                a(href="/logout") Logout
+       
+                        i.material-icons(id="profile" style="color:#868e96!important;") account_circle 
+                        a(class="dropdown-button name" data-activates="dropdown1" style="color:#868e96!important;") #{user.name}
+                            i(class="material-icons right user-arrow" style="color:#868e96!important;") arrow_drop_down
+                        //- a.name(href="/dashboard") #{user.name}
+            section.side-bar
+                ul
+                    li
+                        div.sidebar-titlediv
+                            a.sidebar-title(href="/") My Blog
+                        a.sidebar-item(href="/admin/panel" style="margin-top:20px;") Admin panel
+                            i(class="material-icons left") verified_user 
+
+                        a.sidebar-item(href="/admin/users" id="show-post-items") Users
+                            i(class="material-icons left") people
+
+                        a.sidebar-item(href="/admin/posts" id="show-post-items") Posts
+                            i(class="material-icons left") local_post_office
+
+                        a.sidebar-item(href="/admin/categories" id="show-category-items") Categories
+                            i(class="material-icons left") list
+    .dashboard-content
+        block content
+  
+
+    block scripts
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
+        script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+        script(src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js")
+        script(src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js")
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js")
+        script(src="/dist/App.bundle.js")

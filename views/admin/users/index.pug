@@ -1,0 +1,17 @@
+extends ../layout
+
+
+block content
+        h3.page-title All Users
+        div(id="list")
+            input(type="text", class="fuzzy-search", placeholder="Search users")
+            ul(class="list collection")
+                each user in users
+                    li.collection-item
+                        span.post-title
+                        a.user-search(href=`/admin/user/show/${user.userId}`) #{user.name}
+
+                        a.secondary-content(href=`/admin/user/edit/${user.userId}`) Delete 
+                        a.secondary-content(href=`/admin/user/edit/${user.userId}`) Edit
+
+        

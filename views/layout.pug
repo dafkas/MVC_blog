@@ -10,39 +10,65 @@ html
         link(rel='stylesheet', href='/dist/style.css')
         link(rel="stylesheet" href="https://cdn.quilljs.com/1.3.2/quill.snow.css")
         link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
+        link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
 
 
-        
-        
-        
         meta(name='viewport', content='width=device-width', initial-scale=1)
     body
         block header
-            header.top 
-                nav.nav
-                    .nav__section.nav__section--pages
-                    if user
+            section.header(id="header-fixed") 
+                if user
+                    section.top-bar
+                        ul(id="dropdown1" class="dropdown-content")
+                            li
+                                if(user.role == 'admin') 
+                                    a(href="/admin/panel") Admin panel
+                                a(href="/dashboard") Dashboard
+                                a(href="/logout") Logout
+       
+                        i.material-icons(id="profile") account_circle 
+                        a(class="dropdown-button name" data-activates="dropdown1") #{user.name}
+                            i(class="material-icons right") arrow_drop_down
+                        //- a.name(href="/dashboard") #{user.name}
+   
+                    ul
                         each item in h.dashboardMenu
                                         li.nav__item
-                                            a.nav__link(href=item.slug)
+                                            a(class="hvr-grow-shadow color1", href=item.slug)
                                                 span #{item.title}
-                        p loggedin as #{user.name}
-                    else
+                        input(type="text", style="margin-top:-5px;" class="fuzzy-search right", placeholder="Search posts")
+                        i.material-icons.right(style="line-height: 40px;") search 
+
+                else
+                    section.top-bar
+                        ul(id="dropdown1" class="dropdown-content")
+                            li
+                                a(href="/login")  Login
+                                a(href="/register") Register
+       
+                        i.material-icons(id="profile") account_circle 
+                        a(class="dropdown-button name" href="#!" data-activates="dropdown1") My account
+                            i(class="material-icons right") arrow_drop_down
+                    ul
                         each item in h.menu
                             li.nav__item
-                                a.nav__link(href=item.slug)
-                                    span #{item.title}
-                        p loggedOut
-                        if locals.flashes
-                            .inner.inner--flashes
-                                .flash-messages
-                                    - const categories = Object.keys(locals.flashes)
-                                    each category in categories
-                                        each message in flashes[category]
-                                            .flash(class=`flash--${category}`)
-                                                p.flash__text!= message
-                                                button.flash__remove(onClick="this.parentElement.remove()") &times;
-    .content
+                                a(class="hvr-grow-shadow color1", href=item.slug)
+                                    span #{item.title} 
+                        input(type="text", style="margin-top:-5px;" class="fuzzy-search right", placeholder="Search posts")
+                        i.material-icons.right(style="line-height: 40px;") search 
+   
+
+        block messages
+            if locals.flashes
+                .inner
+                .flash-messages
+                    - const categories = Object.keys(locals.flashes)
+                    each category in categories
+                        each message in flashes[category]
+                            .flash(class=`flash--${category}`)
+                                span.flash__text!= message
+                                button.flash__remove(onClick="this.parentElement.remove()") &times;
+    
         block content
 
     block scripts
@@ -53,6 +79,7 @@ html
         script(src="https://cdn.ckeditor.com/4.7.3/standard/ckeditor.js")
         script(src="https://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js")
         script(src="/dist/App.bundle.js")
+
 
      
 

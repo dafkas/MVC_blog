@@ -1,0 +1,26 @@
+extends ../layout
+
+
+block content
+        h3.page-title Posts
+        h4 My Posts
+        div(id="list")
+            input(type="text", class="fuzzy-search", placeholder="Search posts")
+            ul(class="list collection")
+                each post in posts
+                        li.collection-item
+                            span.post-title
+                                a.name-search.title(href=`/post/show/${post.postId}`) #{post.title}
+                                a.secondary-content(href=`/dashboard/post/delete/${post.postId}`) Delete 
+                                a.secondary-content(href=`/dashboard/post/edit/${post.postId}`) Edit
+                                div.switch.secondary-content
+                                    label Inactive
+                                        if(post.status == 'active')
+                                            input.activate(type="checkbox" id=post.postId, checked) 
+                                        else
+                                            input.activate(type="checkbox", id=post.postId,)
+                                        span.lever
+                                    label Active
+                                input(type="hidden", class="postId", value=post.postId)
+
+                    

@@ -13,9 +13,9 @@ exports.register =  (req, res) => {
 };
 
 exports.dashboard = (req, res) => {
-    models.category.findAll({}).then(category => {
+    models.category.findAll({ order:[['createdAt', 'DESC']] }).then(category => {
         models.post.findAll({ where: {userId: req.user.userId}, include:[{ model: models.user}, { model: models.category}], order:[['createdAt', 'DESC']] }).then((post) => {
-            res.render('users/dashboard', {posts: post, categories: category});
+            res.render('users/dashboard/index', {posts: post, categories: category});
         });
     });
 };

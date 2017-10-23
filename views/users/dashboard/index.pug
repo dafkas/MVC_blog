@@ -1,0 +1,49 @@
+extends ./layout
+
+
+block content
+        h3.page-title Dashboard
+        h4 Profile:
+        span.user-info Name: #{user.name}
+        span.user-info Email: #{user.email}
+        span.user-role Role: #{user.role} user
+        span.user-info Number of posts #{posts.length}
+        h4 Recent posts
+        ul(class="list collection")
+            - let postCounter = 0;
+            each post in posts
+                - postCounter++;
+                    li.collection-item
+                         span.post-title
+                            a(href=`/post/show/${post.postId}`) #{post.title}
+                            a.secondary-content(href=`dashboard/post/delete/${post.postId}`) Delete 
+                            a.secondary-content(href=`dashboard/post/edit/${post.postId}`) Edit
+                            div.switch.secondary-content
+                                label Inactive
+                                    if(post.status == 'active')
+                                        input.activate(type="checkbox" id=post.postId, checked) 
+                                    else
+                                        input.activate(type="checkbox", id=post.postId,)
+                                    span.lever
+                                label Active
+                            input(type="hidden", class="postId", value=post.postId)
+                            if(postCounter > 2)
+                                - break;
+                        
+        h4 Recent categories
+        ul(class="list collection")
+            - let categoryCounter = 0;
+                each category in categories
+                    - categoryCounter++;
+                    if(category.userId == user.userId || category.userId == NULL)
+                        li.collection-item
+                            span.post-title
+                                a(href=`filter/?category=${category.categoryId}`) #{category.category}
+                            if(category.categoryId == 1)
+
+                            else
+                                a.secondary-content(href=`/dashboard/category/delete/${category.categoryId}`) Delete 
+                            div.switch.secondary-content
+                            if(categoryCounter > 2)
+                                - break;
+                    else

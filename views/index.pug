@@ -1,20 +1,36 @@
 extends layout
 
 block content
-    h1 Welcome on the homePage
-    form.form(action=`/filter/` method="GET")
+    section.hero
+        div.hero-text
+            h1 Welcome on my blog
+            i.hero(class="material-icons") keyboard_arrow_down 
+    h2.home Recent posts
+    form.filter-form(action=`/filter/` method="GET")
         div(class="input-field col s4 filter")
-            select(name="category")
-                option(value='', selected='selected') Filter category
+            select(name="category" onchange="this.form.submit();")
+                option(value=1 selected='selected') Filter category
                 each category in categories
-                    option(value=category.categoryId) #{category.category} 
-                input.button(type="submit", class="input-field waves-effect waves-light btn filter-btn" value="Filter")
+                    option(value=category.categoryId) #{category.category}             
 
-    div(id="post-list")
-        input(type="text", class="fuzzy-search", placeholder="Search posts")
+    div(id="list")
         ul(class="list")
+        div.row
             each post in posts
-                li
-                    h3.name #{post.title}
-                    h3.user posted by #{post.user.name}
-                    a(href=`/post/show/${post.postId}`) show
+                li(style="list-style-type:none;")
+                div.col.s12.m4
+                    div.card
+                        div.card-content
+                            div.card-title #{post.title}
+                            p !{post.content}
+                            div.card-action
+                                a.name-search posted by #{post.user.name}
+                                a.right(href=`/post/show/${post.postId}`) show
+                            p.row
+                                a.left(href=`/filter/?category=${post.category.categoryId}`) #{post.category.category}
+                                - const date = post.createdAt 
+                                - let cleanDate = date.toUTCString();
+                                - cleanDate=cleanDate.split(' ').slice(0, 4).join(' ')
+                                span.right #{cleanDate}
+    
+            

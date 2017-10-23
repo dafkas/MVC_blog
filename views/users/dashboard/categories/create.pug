@@ -1,0 +1,10 @@
+extends ../layout
+
+block content
+    h3.page-title Create a new category
+    div(class="category-form")
+        form.form(action="/dashboard/category/create" method="POST")
+            input(type="hidden", name="userId", value=user.userId)
+            input(type="text", name="category", placeholder="Category")
+            br
+            input.button(type="submit", class="btn" value="Save")

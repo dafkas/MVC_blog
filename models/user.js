@@ -12,14 +12,17 @@ module.exports = (sequelize, Sequelize) => {
 
         name: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            required: 'Please supply a name',
         },
  
         email: {
             type: Sequelize.STRING,
+            allowNull: false,
             validate: {
                 isEmail: true
-            }
+            },
+            required: 'Please supply a name',
         },
  
         password: {
@@ -42,6 +45,10 @@ module.exports = (sequelize, Sequelize) => {
                 User.hasMany(models.post, {
                     foreignKey: 'userId',
                     onDelete: 'CASCADE'
+                });
+                User.hasMany(models.category, {
+                    foreignKey: 'userId',
+                    onDelete: 'SET NULL'
                 });
 
             }
