@@ -1,19 +1,24 @@
 mixin editPostForm(categories)
         h3.page-title Edit post
+            if(post.status == 'active')
+                img.active-icon(src="http://localhost:8888/photogallery/public/img/check.png") 
+                span.active-text Active
+            else
+                img.active-icon(src="http://localhost:8888/photogallery/public/img/cross.png")
+                span.active-text Inactive
         form.form(action=`/dashboard/post/update/${post.postId}` method="POST")
-        input(type="hidden", name="postId", value=post.postId)
-        input(type="text", name="title", placeholder="Title" value=post.title)
-        br
-        select(name="categoryId")
-                option(value=post.category.categoryId, selected='selected') #{post.category.category}
-                each category in categories
-                    if(category.userId == user.userId && post.category.categoryId !== category.categoryId  || category.userId == NULL && post.category.categoryId !== category.categoryId)
-                        option(value=category.categoryId) #{category.category} 
-        a(href="/dashboard/category/create")  Or create a new one
-        br
-        input(type="checkbox" name="active" label="Active")
-        |   Active
-        br
-        textarea(rows="10", cols="50", name="content", placeholder="Message..") #{post.content}
-        br
-        input.button.btn(type="submit", value="Save")
+            input(type="hidden", name="postId", value=post.postId)
+            input(type="text", name="title", placeholder="Title" value=post.title)
+            br
+            select(name="categoryId")
+                    option(value=post.category.categoryId, selected='selected') #{post.category.category}
+                    each category in categories
+                        if(category.userId == user.userId && post.category.categoryId !== category.categoryId  || category.userId == NULL && post.category.categoryId !== category.categoryId)
+                            option(value=category.categoryId) #{category.category} 
+            a(href="/dashboard/category/create")  Or create a new one
+            br
+            input(type="checkbox" name="active" label="Active")
+            br
+            textarea(rows="10", cols="50", name="content", placeholder="Message..") #{post.content}
+            br
+            input.button.btn(type="submit", value="Save")

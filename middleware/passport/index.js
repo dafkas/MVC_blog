@@ -33,25 +33,32 @@ module.exports = (passport, user) =>{
             }).then(function(user) {
                 if(user){
                     return done(null, false, {
-                        message: 'Email already taken'
+                        message: req.flash('error', 'Email already taken!')
                     });
-                    req.flash('error', 'Email already taken!');
-                } else {
-                    const userPassword = User.generateHash(password);
-                    const data = {
-                        name: req.body.name,
-                        email: email,
-                        password:userPassword
-                    };
 
-                    User.create(data).then(function(newUser, created) {
-                        if(!newUser){
-                            return done(null, false);
-                        }
-                        if(newUser) {
-                            return done(null, newUser);
-                        }
-                    });
+                } else {
+                    if(req.body.name == ''){
+                        return done(null, false, {
+                            message: req.flash('error', 'Please enter a name')
+                        });
+                    }
+                    else{
+                        const userPassword = User.generateHash(password);
+                        const data = {
+                            name: req.body.name,
+                            email: email,
+                            password:userPassword
+                        };
+
+                        User.create(data).then(function(newUser, created) {
+                            if(!newUser){
+                                return done(null, false);
+                            }
+                            if(newUser) {
+                                return done(null, newUser);
+                            }
+                        });
+                    }
                 }
             });
         }

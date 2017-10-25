@@ -1,0 +1,30 @@
+extends layout
+
+block content 
+    form.filter-form(action=`/blog/filter/` method="GET")
+        div(class="input-field col s4 filter")
+            select(name="category" onchange="this.form.submit();")
+                option(value='0' selected='selected' disabled) Filter category
+                each category in categories
+                    option.selector(value=category.categoryId) #{category.category}    
+    h2.blog All posts
+    div(id="list")
+        div.search-header
+            input(type="text", class="fuzzy-search blog-page-search", placeholder="Search posts")
+            i(class="material-icons blog-page-search-icon" style="color:#868e96!important;") search
+        ul(class="list")
+            each post in posts
+                    li
+                        div.post-content
+                            h2.name-search.title.post-page #{post.title} 
+                            h2.category-search.post-category #{post.category.category}
+                            if(post.content.length > 40)
+                                - const excerpt = post.content.substr(0, 200) + '...';
+                                span !{excerpt}
+                            else
+                                span !{post.content}
+
+                            h2.user-search.posted-by Posted by #{post.user.name}
+                                a.right(href=`/post/show/${post.postId}`) Read more
+
+                            hr

@@ -1,16 +1,16 @@
 extends ../layout
 
 block content
-    h3 #{post.title}
-    h3 #{post.categorie}
+    div.post-content 
+        h2.post-page #{post.title}
+        h2.post-category #{post.category.category}
 
-    div !{post.content}
-    h3 posted by #{post.user.name}
-    if user
-        if (currentUser.role == 'admin' || currentUser.userId == post.user.userId)
-            a(href=`/post/edit/${post.postId}`) edit
-            br
-            a(href=`/post/delete/${post.postId}`) delete
-        else
-        
-
+        span !{post.content}
+            h2.posted-by Posted by #{post.user.name}
+            div.edits
+                if user
+                    if (currentUser.role == 'admin' || currentUser.userId == post.user.userId)
+                        a(href=`/dashboard/post/edit/${post.postId}`) Edit 
+                        
+                        a(href=`/dashboard/post/delete/${post.postId}`) Delete
+                    else

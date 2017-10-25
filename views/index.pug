@@ -1,17 +1,14 @@
 extends layout
 
 block content
-    section.hero
-        div.hero-text
-            h1 Welcome on my blog
-            i.hero(class="material-icons") keyboard_arrow_down 
-    h2.home Recent posts
     form.filter-form(action=`/filter/` method="GET")
         div(class="input-field col s4 filter")
             select(name="category" onchange="this.form.submit();")
-                option(value=1 selected='selected') Filter category
+                option(value=0 selected='selected' disabled) Filter category
                 each category in categories
-                    option(value=category.categoryId) #{category.category}             
+                    option(value=category.categoryId) #{category.category}   
+    h2.home Recent posts
+            
 
     div(id="list")
         ul(class="list")
@@ -22,10 +19,15 @@ block content
                     div.card
                         div.card-content
                             div.card-title #{post.title}
-                            p !{post.content}
+                            if(post.content.length > 40)
+                                - const excerpt = post.content.substr(0, 50) + '...';
+                                span !{excerpt}
+                            else
+                                span !{post.content}
+                            
                             div.card-action
-                                a.name-search posted by #{post.user.name}
-                                a.right(href=`/post/show/${post.postId}`) show
+                                a.name-search Posted by #{post.user.name}
+                                a.right(href=`/post/show/${post.postId}` style="margin-right:0px;") show
                             p.row
                                 a.left(href=`/filter/?category=${post.category.categoryId}`) #{post.category.category}
                                 - const date = post.createdAt 

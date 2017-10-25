@@ -9,12 +9,13 @@ const checkRole = require('../middleware/role-auth');
 module.exports = function(app, passport) {
 
     app.get('/', userController.home);
+    app.get('/blog', userController.blog);
     app.get('/register',authController.isLoggedOut, userController.register);
     app.post('/register', passport.authenticate('local-signup', {
             successRedirect: '/dashboard',
             successFlash: 'You are now logged in!',
             failureRedirect: '/register',
-            failureFlash: 'Email adress is already taken',
+            // failureFlash: 'Email adress is already taken',
         }
     ));
     app.get('/login',authController.isLoggedOut, authController.login);
@@ -46,6 +47,8 @@ module.exports = function(app, passport) {
     app.get('/dashboard/category/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), categoryController.delete);
     
     app.get('/filter', postController.filterPosts);
+
+    app.get('/blog/filter', postController.filterPosts);
 
 
     app.post('/category/:id', postController.filterPosts);

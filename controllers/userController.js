@@ -8,6 +8,15 @@ exports.home =  (req, res) => {
     });
 };
 
+exports.blog =  (req, res) => {
+    models.category.findAll({}).then(category => {
+        models.post.findAll({ where: {status: 'active'}, include:[{ model: models.user}, { model: models.category}], order:[['createdAt', 'DESC']] }).then((post) => {
+            res.render('blog', {posts: post, categories: category});
+        });
+    });
+};
+
+
 exports.register =  (req, res) => {
     res.render('users/register');
 };

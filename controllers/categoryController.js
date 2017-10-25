@@ -13,7 +13,7 @@ exports.create = (req, res) => {
 exports.store = (req, res) => {
     console.log(req.body);
     models.category.create(req.body);
-    req.flash('success', 'category saved!');
+    req.flash('success', 'Category saved!');
     res.redirect('back');
 };
 
@@ -25,6 +25,7 @@ exports.delete = (req, res) => {
         return;
     }
     models.category.delete(req.params.id);
+    req.flash('success', 'Category deleted!');
     res.redirect('back');
 }
 

@@ -3,12 +3,6 @@ extends ./layout
 
 block content
         h3.page-title Admin panel
-        h4 Profile:
-        span.user-info Name: #{user.name}
-        span.user-info Email: #{user.email}
-        span.user-role Role: #{user.role} user
-        span.user-info Number of posts #{posts.length}
-
         h4 Recent registered users
                 ul(class="list collection")
                         - let usersCounter = 0;
@@ -39,8 +33,8 @@ block content
                          span.post-title
                             a(href=`/post/show/${post.postId}`) #{post.title}
                             a.name(href=`/admin/user/show/${post.userId}`) by #{post.user.name}
-                            a.secondary-content(href=`dashboard/post/delete/${post.postId}`) Delete 
-                            a.secondary-content(href=`dashboard/post/edit/${post.postId}`) Edit
+                            a.secondary-content(href=`/admin/post/delete/${post.postId}`) Delete 
+                            a.secondary-content(href=`/admin/post/edit/${post.postId}`) Edit
                             div.switch.secondary-content
                                 label Inactive
                                     if(post.status == 'active')

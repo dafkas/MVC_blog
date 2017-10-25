@@ -1,6 +1,7 @@
 const models = require('../models');
 const sanitize = require('../middleware/sanitize-html');
 
+
 exports.home = (req, res) => {
     models.category.findAll({ order:[['createdAt', 'DESC']] }).then(category => {
             models.post.findAll({ where: {userId: req.user.userId}, include:[{ model: models.user}, { model: models.category}], order:[['createdAt', 'DESC']] }).then((post) => {
@@ -16,15 +17,20 @@ exports.createPost = (req, res) => {
 };
 
 exports.storePost = (req, res) => {
-    console.log(req.body);
-    models.post.create(req.body);
-    req.flash('success', 'Post created');
-    res.redirect('/dashboard/posts')
+    if(req.body.title == ''){
+        console.log('please enter title');
+        req.flash('info', 'Please enter a title');
+        res.redirect('back');
+    }else{
+        models.post.create(req.body);
+        req.flash('success', 'Post created');
+        res.redirect('/dashboard/posts')
+    }
 };
 
 exports.showPost = (req, res) => {
     const currentUser = req.user;
-    models.post.findById(req.params.id, {include: [models.user]}).then(post => {
+    models.post.findById(req.params.id, {include: [models.user, models.category] }).then(post => {
         res.render('posts/show', {post: post, currentUser: currentUser});
     })
 };
@@ -32,8 +38,7 @@ exports.showPost = (req, res) => {
 exports.editPost = (req, res) => {
     models.category.findAll({}).then(category => {
         models.post.findById(req.params.id, {include: [models.category]}).then(post => {
-                console.log(post.category.category);
-                res.render('users/dashboard/posts/edit', {post: post, categories: category});
+            res.render('users/dashboard/posts/edit', {post: post, categories: category});
         })
     });
 };
@@ -77,7 +82,13 @@ exports.deletePost = (req,res) => {
 exports.filterPosts = (req, res) => {
     models.category.findAll({}).then(category => {
         models.post.findAll({ where: {categoryId: req.query.category, status: 'active'}, include:[{ model: models.user}, { model: models.category}], order:[['createdAt', 'DESC']] }).then((post) => {
-            res.render('index', {posts: post, categories: category});
+            console.log(req.query.category)
+            if(req.path == '/filter/'){
+                res.render('index', {posts: post, categories: category});
+            }else{
+                res.render('blog', {posts: post, categories: category});
+            }
+
         });
     });
 }

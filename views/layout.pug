@@ -31,13 +31,13 @@ html
                             i(class="material-icons right") arrow_drop_down
                         //- a.name(href="/dashboard") #{user.name}
    
-                    ul
-                        each item in h.dashboardMenu
-                                        li.nav__item
-                                            a(class="hvr-grow-shadow color1", href=item.slug)
-                                                span #{item.title}
-                        input(type="text", style="margin-top:-5px;" class="fuzzy-search right", placeholder="Search posts")
-                        i.material-icons.right(style="line-height: 40px;") search 
+
+                        //- each item in h.dashboardMenu
+                        //-                 li.nav__item
+                        //-                     a(class="hvr-grow-shadow color1", href=item.slug)
+                        //-                         span #{item.title}
+                        //- input(type="text", style="margin-top:-5px;" class="fuzzy-search right", placeholder="Search posts")
+                        //- i.material-icons.right(style="line-height: 40px;") search 
 
                 else
                     section.top-bar
@@ -49,13 +49,13 @@ html
                         i.material-icons(id="profile") account_circle 
                         a(class="dropdown-button name" href="#!" data-activates="dropdown1") My account
                             i(class="material-icons right") arrow_drop_down
-                    ul
-                        each item in h.menu
-                            li.nav__item
-                                a(class="hvr-grow-shadow color1", href=item.slug)
-                                    span #{item.title} 
-                        input(type="text", style="margin-top:-5px;" class="fuzzy-search right", placeholder="Search posts")
-                        i.material-icons.right(style="line-height: 40px;") search 
+
+                        //- each item in h.menu
+                        //-     li.nav__item
+                        //-         a(class="hvr-grow-shadow color1", href=item.slug)
+                        //-             span #{item.title} 
+                        //- input(type="text", style="margin-top:-5px;" class="fuzzy-search right", placeholder="Search posts")
+                        //- i.material-icons.right(style="line-height: 40px;") search 
    
 
         block messages
@@ -68,9 +68,20 @@ html
                             .flash(class=`flash--${category}`)
                                 span.flash__text!= message
                                 button.flash__remove(onClick="this.parentElement.remove()") &times;
+        section.hero
+        div.hero-text
+            //- span #{locals.url}
+            if(locals.url == '/')
+                a(href="/blog") Blog
+            else
+                a(href="/") Home
+
     
         block content
 
+        block footer
+            section.footer
+                p.copyright © 2017 Created by Marvin Holleman. 
     block scripts
         script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js")
         script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js")
