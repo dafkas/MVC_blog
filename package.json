@@ -36,6 +36,7 @@
     "forever": "0.15.3",
     "froala-editor": "^2.7.0",
     "glob": "7.1.1",
+    "helmet": "^3.9.0",
     "html-to-text": "3.2.0",
     "jimp": "0.2.27",
     "juice": "4.0.2",

@@ -8,6 +8,7 @@ exports.home =  async (req, res) => {
     });
 };
 
+//use async await for asynchronous error messages
 exports.blog =  async (req, res) => {
     models.category.findAll({}).then(category => {
         models.post.findAll({ where: {status: 'active'}, include:[{ model: models.user}, { model: models.category}], order:[['createdAt', 'DESC']] }).then((post) => {

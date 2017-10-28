@@ -7,6 +7,9 @@ const sanitize = require('../middleware/sanitize-html');
 const checkRole = require('../middleware/role-auth');
 const { catchErrors } = require('../handlers/errorHandlers');
 
+// catchErrors(controller.function)) Wrap function in catchError function
+// chechRole.roleAuth(['role']) = check role and find posts by userId
+
 module.exports = function(app, passport) {
 
     app.get('/', catchErrors(userController.home));
@@ -51,9 +54,9 @@ module.exports = function(app, passport) {
 
     app.get('/dashboard/category/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), categoryController.delete);
     
-    app.get('/filter', postController.filterPosts);
-    app.get('/blog/filter', postController.filterPosts);
-    app.post('/category/:id', postController.filterPosts);
+    app.get('/filter', catchErrors(postController.filterPosts));
+    app.get('/blog/filter', catchErrors(postController.filterPosts));
+    app.post('/category/:id', catchErrors(postController.filterPosts));
     
 
 

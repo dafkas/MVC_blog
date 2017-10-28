@@ -5,15 +5,15 @@ exports.login = (req, res) => {
 };
 
 exports.logout = (req, res) => {
+    //passport logout
     req.logout();
+    //throw message
     req.flash('success', 'Successfully logged out!');
     res.redirect('/');
-    // req.session.destroy((err) => {
-    //     res.redirect('/');
-    // });
 };
 
 exports.isLoggedIn = (req, res, next) => {
+    //check if user is loggedIn
     if (req.isAuthenticated()) {
         next();
     } else {
@@ -23,6 +23,7 @@ exports.isLoggedIn = (req, res, next) => {
 };
 
 exports.isLoggedOut = (req, res, next) => {
+    //check if user is logged out
     if (req.isAuthenticated()) {
         res.redirect('/dashboard');
     } else {

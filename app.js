@@ -9,8 +9,7 @@ const promisify = require('es6-promisify');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
 const flash = require('connect-flash');
-
-
+const helmet = require('helmet');
 
 //create express app
 const app = express();
@@ -21,6 +20,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+//helmet for protection
+app.use(helmet())
+
+//cookies
+app.use(cookieParser(process.env.SECRET, { expire: new Date(Date.now()) + 1800000 }));
 
 //bodyParser 
 app.use(bodyParser.json());
@@ -31,7 +35,8 @@ app.use(session({
   secret: process.env.SECRET,
   key: process.env.KEY,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  cookie: { expire: new Date(Date.now()) + 1800000 }
 }));
 
 app.use(passport.initialize());
@@ -47,26 +52,24 @@ app.use((req, res, next) => {
     next();
 });
 
-
-
 //Require models, ...index.js
 const models = require('./models');
 
 //require routes, pzss app and password parameters
 const routes = require('./routes/index.js')(app, passport);
 
+//errorhandlers
 app.use(errorHandlers.notFound);
 
-if(app.get('env') === 'development'){
+//Change to development or production errors
+if(process.env.NODE_ENV === 'development'){
     app.use(errorHandlers.developmentErrors);
 }else{
     app.use(errorHandlers.productionErrors);
 }
 
-
 //Require middleware
 require('./middleware/passport')(passport, models.user);
-
 
 //Sync Database
 models.sequelize.sync().then(function() {
