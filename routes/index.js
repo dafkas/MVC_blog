@@ -20,7 +20,7 @@ module.exports = function(app, passport) {
             // failureFlash: 'Email adress is already taken',
         }
     ));
-    
+
     app.get('/login',authController.isLoggedOut, authController.login);
     app.post('/login', passport.authenticate('local-signin', {
             successRedirect: '/dashboard',
@@ -57,17 +57,17 @@ module.exports = function(app, passport) {
     
 
 
-    app.get('/admin/panel', authController.isLoggedIn, checkRole.roleAuth(['admin']), adminController.panel);
-    app.get('/admin/users', authController.isLoggedIn, checkRole.roleAuth(['admin']), adminController.users);
-    app.get('/admin/posts', authController.isLoggedIn, checkRole.roleAuth(['admin']), adminController.posts);
-    app.get('/admin/categories', authController.isLoggedIn, checkRole.roleAuth(['admin']), adminController.categories);
-    app.get('/admin/category/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), adminController.deleteCategory);
+    app.get('/admin/panel', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.panel));
+    app.get('/admin/users', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.users));
+    app.get('/admin/posts', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.posts));
+    app.get('/admin/categories', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.categories));
+    app.get('/admin/category/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.deleteCategory));
 
-    app.get('/admin/post/edit/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), adminController.editPost);
+    app.get('/admin/post/edit/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.editPost));
     app.post('/admin/post/update/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), sanitize.sanitizeContent, adminController.updatePost);
-    app.get('/admin/post/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), adminController.deletePost);
-    app.get('/admin/user/show/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), adminController.showUser);
-    app.get('/admin/user/edit/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), adminController.editUser);
+    app.get('/admin/post/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.deletePost));
+    app.get('/admin/user/show/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.showUser));
+    app.get('/admin/user/edit/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.editUser));
     app.post('/admin/user/update/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), adminController.updateUser);
-    app.get('/admin/user/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), adminController.deleteUser);
+    app.get('/admin/user/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.deleteUser));
 }

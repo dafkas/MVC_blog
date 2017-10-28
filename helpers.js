@@ -19,6 +19,5 @@ exports.allowedTags = [
 'table', 'thead', 'caption', 'tbody', 'tr', 'th', 'td', 'pre', 'img'];
 
 exports.allowedAttributes = {
- 'a': [ 'href' ],
  'img' : [ 'src' ]
 };
