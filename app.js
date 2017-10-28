@@ -10,6 +10,8 @@ const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
 const flash = require('connect-flash');
 
+
+
 //create express app
 const app = express();
 
@@ -46,11 +48,21 @@ app.use((req, res, next) => {
 });
 
 
+
 //Require models, ...index.js
 const models = require('./models');
 
 //require routes, pzss app and password parameters
 const routes = require('./routes/index.js')(app, passport);
+
+app.use(errorHandlers.notFound);
+
+if(app.get('env') === 'development'){
+    app.use(errorHandlers.developmentErrors);
+}else{
+    app.use(errorHandlers.productionErrors);
+}
+
 
 //Require middleware
 require('./middleware/passport')(passport, models.user);

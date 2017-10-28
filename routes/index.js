@@ -5,12 +5,14 @@ const postController = require('../controllers/postController');
 const categoryController = require('../controllers/categoryController');
 const sanitize = require('../middleware/sanitize-html');
 const checkRole = require('../middleware/role-auth');
+const { catchErrors } = require('../handlers/errorHandlers');
 
 module.exports = function(app, passport) {
 
-    app.get('/', userController.home);
+    app.get('/', catchErrors(userController.home));
     app.get('/blog', userController.blog);
     app.get('/register',authController.isLoggedOut, userController.register);
+
     app.post('/register', passport.authenticate('local-signup', {
             successRedirect: '/dashboard',
             successFlash: 'You are now logged in!',
@@ -18,6 +20,7 @@ module.exports = function(app, passport) {
             // failureFlash: 'Email adress is already taken',
         }
     ));
+    
     app.get('/login',authController.isLoggedOut, authController.login);
     app.post('/login', passport.authenticate('local-signin', {
             successRedirect: '/dashboard',
@@ -26,31 +29,30 @@ module.exports = function(app, passport) {
             successFlash: 'You are now logged in!'
         }
     ));
+
     app.get('/logout', authController.isLoggedIn, authController.logout);
 
-    app.get('/dashboard', authController.isLoggedIn, userController.dashboard);
-    app.get('/dashboard/posts', authController.isLoggedIn, postController.home);
-    app.get('/post/show/:id',postController.showPost);
-    app.get('/dashboard/post/edit/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), postController.editPost);
+    app.get('/dashboard', authController.isLoggedIn, catchErrors(userController.dashboard));
+    app.get('/dashboard/posts', authController.isLoggedIn, catchErrors(postController.home));
+    app.get('/post/show/:id', catchErrors(postController.showPost));
+    app.get('/dashboard/post/edit/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), catchErrors(postController.editPost));
     app.post('/dashboard/post/update/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), sanitize.sanitizeContent, postController.updatePost);
-    app.get('/dashboard/post/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), postController.deletePost);
-    app.get('/dashboard/post/create', authController.isLoggedIn, postController.createPost);
+    app.get('/dashboard/post/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), catchErrors(postController.deletePost));
+    app.get('/dashboard/post/create', authController.isLoggedIn,  catchErrors(postController.createPost));
+
     app.post('/dashboard/post/create', authController.isLoggedIn, sanitize.sanitizeContent, postController.storePost);
     app.post('/post/activate/:id', authController.isLoggedIn, postController.activatePost);
     app.post('/post/deactivate/:id', authController.isLoggedIn, postController.deactivatePost);
     
-    app.get('/dashboard/categories',authController.isLoggedIn, categoryController.home);
+    app.get('/dashboard/categories',authController.isLoggedIn, catchErrors(categoryController.home));
 
-    app.get('/dashboard/category/create', authController.isLoggedIn, categoryController.create);
+    app.get('/dashboard/category/create', authController.isLoggedIn, catchErrors(categoryController.create));
     app.post('/dashboard/category/create',authController.isLoggedIn, categoryController.store);
 
     app.get('/dashboard/category/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), categoryController.delete);
     
     app.get('/filter', postController.filterPosts);
-
     app.get('/blog/filter', postController.filterPosts);
-
-
     app.post('/category/:id', postController.filterPosts);
     
 

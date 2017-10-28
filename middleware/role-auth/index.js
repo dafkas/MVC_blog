@@ -7,8 +7,7 @@ exports.roleAuth = (role) => {
                 if(req.user.role == 'admin' || req.user.userId == post.userId){
                     next();
                 }
-            }
-            else{
+            }else{
                 req.flash('error', 'Not allowed!');
                 res.redirect('back');
             }

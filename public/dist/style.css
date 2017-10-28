@@ -585,4 +585,7 @@ h2.post-page {
   font-size: 20px;
   position: absolute; }
 
+.dropdown-content li > a, .dropdown-content li > span {
+  color: grey !important; }
+
 /*# sourceMappingURL=style.css.map*/
