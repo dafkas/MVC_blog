@@ -22,7 +22,7 @@ module.exports = (sequelize, Sequelize) => {
             validate: {
                 isEmail: true
             },
-            required: 'Please supply a name',
+            required: 'Please supply an email',
         },
  
         password: {

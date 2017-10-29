@@ -1,4 +1,3 @@
-
 const fs = require('fs');
 const path = require('path');
 const mysql = require("mysql");
@@ -7,14 +6,13 @@ require('dotenv').config({path: './variables.env'});
 
 const db = {};
 
-//connect with database
+//connect database
 const sequelize = new Sequelize(process.env.DB_DATABASE, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     dialect: process.env.DB_CONNECTION
 }); 
 
-//migrate models automaticly
 fs
     .readdirSync(__dirname)
     .filter(function(file) {

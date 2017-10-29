@@ -23,33 +23,22 @@ module.exports = (passport, user) =>{
             usernameField: 'email',
             passwordField: 'password',
             passReqToCallback: true
-        },
-
-        (req, email, password, done) => {
-            User.findOne({
-                where: {
-                    email: email
-                }
-            }).then(function(user) {
+        }, (req, email, password, done) => {
+            User.findOne({ where: { email: email }}).then(function(user) {
                 if(user){
-                    return done(null, false, {
-                        message: req.flash('error', 'Email already taken!')
-                    });
-
+                    return done(null, false, { message: req.flash('error', 'Email already taken!') });
                 } else {
-                    if(req.body.name == ''){
+                    if(req.body.name.length < 4){
                         return done(null, false, {
-                            message: req.flash('error', 'Please enter a name')
+                            message: req.flash('error', 'Name must me a minimum of 4 characters')
                         });
-                    }
-                    else{
+                    } else {
                         const userPassword = User.generateHash(password);
                         const data = {
                             name: req.body.name,
                             email: email,
                             password:userPassword
                         };
-
                         User.create(data).then(function(newUser, created) {
                             if(!newUser){
                                 return done(null, false);
@@ -69,9 +58,7 @@ module.exports = (passport, user) =>{
             passwordField: 'password',
             roleField: 'role',
             passReqToCallback: true
-
-    },
-    (req, email, password, done) => {
+    }, (req, email, password, done) => {
         const User = user;
         // console.log(req.session.user);
         User.findOne({where: {email: email}}).then(function(user){
@@ -85,6 +72,5 @@ module.exports = (passport, user) =>{
                 return done(null, userInfo);
             }
         });
-    }
-    ))
+    }));
 }

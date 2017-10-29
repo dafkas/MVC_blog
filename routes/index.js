@@ -7,7 +7,7 @@ const sanitize = require('../middleware/sanitize-html');
 const checkRole = require('../middleware/role-auth');
 const { catchErrors } = require('../handlers/errorHandlers');
 
-// catchErrors(controller.function)) Wrap function in catchError function
+// catchErrors(controller.function)) Wrap function in catchError middleware
 // chechRole.roleAuth(['role']) = check role and find posts by userId
 
 module.exports = function(app, passport) {
@@ -38,8 +38,8 @@ module.exports = function(app, passport) {
     app.get('/dashboard', authController.isLoggedIn, catchErrors(userController.dashboard));
     app.get('/dashboard/posts', authController.isLoggedIn, catchErrors(postController.home));
     app.get('/post/show/:id', catchErrors(postController.showPost));
-    app.get('/dashboard/post/edit/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), catchErrors(postController.editPost));
-    app.post('/dashboard/post/update/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), sanitize.sanitizeContent, postController.updatePost);
+    app.get('/dashboard/post/edit/:id', authController.isLoggedIn, checkRole.roleAuth(['regular']), catchErrors(postController.editPost));
+    app.post('/dashboard/post/update/:id', authController.isLoggedIn, checkRole.roleAuth(['regular']), sanitize.sanitizeContent, postController.updatePost);
     app.get('/dashboard/post/delete/:id', authController.isLoggedIn, checkRole.roleAuth(['admin', 'regular']), catchErrors(postController.deletePost));
     app.get('/dashboard/post/create', authController.isLoggedIn,  catchErrors(postController.createPost));
 
@@ -58,8 +58,6 @@ module.exports = function(app, passport) {
     app.get('/blog/filter', catchErrors(postController.filterPosts));
     app.post('/category/:id', catchErrors(postController.filterPosts));
     
-
-
     app.get('/admin/panel', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.panel));
     app.get('/admin/users', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.users));
     app.get('/admin/posts', authController.isLoggedIn, checkRole.roleAuth(['admin']), catchErrors(adminController.posts));

@@ -1,6 +1,6 @@
 mixin registerForm()
     div.login-form
-        form.form(action="/register" method="POST")
+        form.form(action="/register" method="POST" novalidate)
             input(type="text", name="name", placeholder="Name")
             input(type="email", name="email", placeholder="Email")
             input(type="password", name="password", placeholder="Password")

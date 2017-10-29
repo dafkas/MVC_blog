@@ -8,11 +8,13 @@ module.exports = (sequelize, Sequelize) => {
         },
         title: {
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+            required: 'Your post must have a title!'
         },
         content: {            
             type: Sequelize.STRING,
-            allowNull: false
+            allowNull: false,
+
         },
         status: {
             type: Sequelize.ENUM('active', 'inactive'),

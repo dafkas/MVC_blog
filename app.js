@@ -10,6 +10,8 @@ const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
 const flash = require('connect-flash');
 const helmet = require('helmet');
+const expressValidator = require('express-validator');
+
 
 //create express app
 const app = express();
@@ -22,6 +24,9 @@ app.set('view engine', 'pug');
 
 //helmet for protection
 app.use(helmet())
+
+//model validation
+app.use(expressValidator());
 
 //cookies
 app.use(cookieParser(process.env.SECRET, { expire: new Date(Date.now()) + 1800000 }));
@@ -52,7 +57,7 @@ app.use((req, res, next) => {
     next();
 });
 
-//Require models, ...index.js
+//require models, index.js
 const models = require('./models');
 
 //require routes, pzss app and password parameters

@@ -28,10 +28,10 @@ exports.developmentErrors = (err, req, res, next) => {
 
 //standard error message, without stacktrace and sensitive information
 exports.productionErrors = (err, req, res, next) => {
-  err.status = 500;
+  err.status = 404;
   const errorDetails = {
     status: err.status,
-    message: 'Internal server error'
+    message: 'Page not Found - 404 error'
   };
   res.render('error', errorDetails);
 };
